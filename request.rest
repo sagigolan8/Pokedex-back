@@ -1,0 +1,8 @@
+# GET  http://localhost:8080/pokemon/get/ditto
+# put  http://localhost:8080/pokemon/catch/121
+# Content-Type: application/json
+# username: kiki 
+DELETE   http://localhost:8080/pokemon/release/13
+Content-Type: application/json
+username: kiki 
+
