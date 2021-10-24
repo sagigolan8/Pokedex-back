@@ -1,29 +1,26 @@
 const router = require('express').Router()
-var Pokedex = require('pokedex-promise-v2');
-var P = new Pokedex();
+const fs = require('fs')
+const path = require('path');
+const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
 
-router.get('/',(req,res)=>{
-    console.log(req.query.name);
-    res.send('User List');
-})
+router.post('/info',  (req, res)=> { //sign up
+        const userName = req.headers.username;
+        if(!fs.existsSync(`${usersPath}/${userName}`)){
+        fs.mkdirSync(`${usersPath}/${userName}`)//create new directory by the username 
+        res.send('you are just signed up, now you can login')
+        }
+        else{
+        res.send('This username is already taken try another one....')
+        }
+  });
 
-router.get('/new',(req,res)=>{
-    res.send('User New Form');
+router.get('/info/login',  (req, res)=> { //sign in
+    const userName = req.headers.username;
+    if(fs.existsSync(`${usersPath}/${userName}`))
+    res.send(true)
+    else
+    res.send(false)
 })
-
-router.post('/',(req,res)=>{
-    res.send('Create User');
-})
-
-router.route('/:id')
-.get((req,res)=>{
-    res.send(`User Get With ID ${req.params.id}`);
-})
-.put((req,res)=>{
-    res.send(`Update User Get With ID ${req.params.id}`);
-})
-.delete((req,res)=>{
-    res.send(`Delete User Get With ID ${req.params.id}`);
-})
+  
 
 module.exports = router

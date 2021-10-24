@@ -2,7 +2,19 @@
 # put  http://localhost:8080/pokemon/catch/121
 # Content-Type: application/json
 # username: kiki 
-DELETE   http://localhost:8080/pokemon/release/13
+# POST  http://localhost:8080/info 
+# username: shachar2
+# Content-Type: application/json
+
+# {
+#   username: 'wqdd'   
+# }
+POST  http://localhost:8080/info
 Content-Type: application/json
-username: kiki 
+
+{
+    "username" : "ory"
+}
+
+
 
