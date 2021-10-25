@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express();
 var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
+const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
 const port = 8080;
 
 app.use(express.json())
@@ -17,7 +18,7 @@ app.get('/type/:name',async function(req, res) {
 });
 
 
-app.use('/pokemon', pokemonRouter)
+app.use('/pokemon',  handleUserName,pokemonRouter)
 app.use('/users', userRouter)//register request
 
 

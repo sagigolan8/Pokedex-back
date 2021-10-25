@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const fs = require('fs')
-const path = require('path');
 const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
 
 router.post('/info',  (req, res)=> { //sign up
