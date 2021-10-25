@@ -11,18 +11,12 @@ const port = 8080;
 app.use(express.json())
 app.use(cors())
 
-
-
 app.get('/type/:name',async function(req, res) {
   res.send(await (P.getTypeByName(req.params.name)))
 });
 
-
 app.use('/pokemon',  handleUserName,pokemonRouter)
 app.use('/users', userRouter)//register request
-
-
-
 
 // start the server
 app.listen(port, function() {

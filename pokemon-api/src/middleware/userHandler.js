@@ -4,7 +4,6 @@ const handleUserName = function (req, res, next) {
     if (userName === undefined)
         return errorfunc.noAuth(null, req, res)
     else {
-        console.log('aaa')
         req.username = userName
         next()
     }

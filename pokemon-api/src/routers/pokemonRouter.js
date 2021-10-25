@@ -2,26 +2,30 @@ const router = require('express').Router()
 var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
 const fs = require('fs')
+const path = require('path')
 const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
-// const { errorfunc } = require('./dev/cyber4s/Pokedex-back/pokemon-api/src/routers/userRouter.js')
 const { errorfunc } = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/errorHandler.js')
+const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
 
-
-router.get('/',(req,res)=>{ 
-        const userName = req.username
-        const upokemonsTempArray = fs.readdirSync(`${usersPath}/${userName}`)
-        let pokemonsNewArray = []
-        upokemonsTempArray.forEach((file)=>{
-        pokemonsNewArray.push(openPokemonFile(`${usersPath}/${userName}/${file}`))
-        })
-        res.send(pokemonsNewArray);
- 
-})
 
 function openPokemonFile(usersPath) {//gets file path return the name of the pokemon
     const pokemonObj = JSON.parse(fs.readFileSync(usersPath));
     return pokemonObj.name
   }
+
+
+router.get('/', handleUserName, function (req, res) {
+    let pokemonArray = []
+    const userName = req.username
+    const userPath = `${usersPath}/${userName}`
+    if (fs.existsSync(userPath)) {
+        const userFiles = fs.readdirSync(userPath)
+        userFiles.forEach((a) => {
+            pokemonArray.push(openPokemonFile(`${userPath}/${a}`))
+        })
+        return res.json(pokemonArray)
+    }
+})
 
 
 router.get('/get/:id', async(req,res)=>{
@@ -30,7 +34,6 @@ router.get('/get/:id', async(req,res)=>{
         res.send((await getPokemon(req.params.id)));
     } catch  {
         errorfunc.pokemonNotFound(null,req,res)
-        // res.status(404).send('')
     }
 })
 router.get('/query', async(req,res)=>{
@@ -39,7 +42,6 @@ router.get('/query', async(req,res)=>{
         res.send((await getPokemon(req.query.name)));
     } catch  {
         errorfunc.pokemonNotFound(null,req,res)
-        // res.status(404).send('')
 
     }
 })
@@ -54,11 +56,10 @@ router.put("/catch/:id", async (req, res)=> {//function check if pokemon already
             errorfunc.forbiddenAction(null,req,res)
         else{
             fs.writeFileSync(`${usersPath}/${userName}/${id}.json`,pokemonObj)//create file with id name
-            res.send("Pokemon caught ✔")
+            res.send("You've got yourself a pokemon ✔")
         }
     } catch (error) {
         errorfunc.forbiddenAction(null,req,res)
-        // res.status(403).send("An error occurred, check if this pokemon exist....")
     }
 
 })
@@ -73,7 +74,6 @@ router.delete("/release/:id", (req, res)=> {
 }
     else{
         errorfunc.forbiddenAction(null,req,res)
-        // res.status(403).send("Pokemon didn't caught yet")
     }
 })
 

@@ -14,4 +14,4 @@ const noAuth = function (err, req, res, next) {
 }
 
 const errorfunc = { pokemonNotFound, forbiddenAction, serverError, noAuth }
-module.exports ={ errorfunc}
+module.exports ={errorfunc}

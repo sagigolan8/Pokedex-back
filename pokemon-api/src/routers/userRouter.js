@@ -6,7 +6,7 @@ router.post('/info',  (req, res)=> { //sign up
         const userName = req.headers.username;
         if(!fs.existsSync(`${usersPath}/${userName}`)){
         fs.mkdirSync(`${usersPath}/${userName}`)//create new directory by the username 
-        res.send('you are just signed up, now you can login')
+        res.send('you signed up, now you can login')
         }
         else{
         res.send('This username is already taken try another one....')
