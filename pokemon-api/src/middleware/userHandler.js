@@ -1,4 +1,4 @@
-const { errorfunc } = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/errorHandler.js')
+const { errorfunc } = require('../middleware/errorHandler')
 const handleUserName = function (req, res, next) {
     const userName = req.headers.username
     if (userName === undefined)

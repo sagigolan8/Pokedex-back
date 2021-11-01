@@ -4,8 +4,9 @@ var P = new Pokedex();
 const fs = require('fs')
 const path = require('path')
 const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
-const { errorfunc } = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/errorHandler.js')
-const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
+const { errorfunc } = require('../middleware/errorHandler')
+// const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
+const {handleUserName} = require('../middleware/errorHandler')
 
 
 function openPokemonFile(usersPath) {//gets file path return the name of the pokemon

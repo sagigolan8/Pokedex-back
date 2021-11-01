@@ -6,7 +6,7 @@ const app = express();
 require('dotenv').config()
 var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
-const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
+const {handleUserName} = require('./src/middleware/userHandler')
 const port = process.env.PORT || 8080;
 
 app.use(express.json())
