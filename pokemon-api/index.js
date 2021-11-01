@@ -3,10 +3,11 @@ const userRouter = require('./src/routers/userRouter')
 const pokemonRouter = require('./src/routers/pokemonRouter')
 const cors = require('cors')
 const app = express();
+require('dotenv').config()
 var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
 const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(express.json())
 app.use(cors())
