@@ -5,7 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
 const { errorfunc } = require('../middleware/errorHandler')
-// const {handleUserName} = require('C:/dev/cyber4s/Pokedex-back/pokemon-api/src/middleware/userHandler.js')
 const {handleUserName} = require('../middleware/errorHandler')
 
 
