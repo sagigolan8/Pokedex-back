@@ -3,7 +3,8 @@ var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
 const fs = require('fs')
 const path = require('path')
-const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
+// const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
+// const usersPath = path.resolve(path.join('./users', userName))
 const { errorfunc } = require('../middleware/errorHandler')
 const {handleUserName} = require('../middleware/userHandler')
 
@@ -17,7 +18,8 @@ function openPokemonFile(usersPath) {//gets file path return the name of the pok
 router.get('/', handleUserName, function (req, res) {
     let pokemonArray = []
     const userName = req.username
-    const userPath = `${usersPath}/${userName}`
+    const userPath = path.resolve(path.join('./users', userName))
+    // const userPath = `${usersPath}/${userName}`
     if (fs.existsSync(userPath)) {
         const userFiles = fs.readdirSync(userPath)
         userFiles.forEach((a) => {
@@ -51,11 +53,12 @@ router.put("/catch/:id", async (req, res)=> {//function check if pokemon already
     try {
         const id = req.params.id;
         const userName = req.username
+        const userPath = path.resolve(path.join('./users', userName))
         const pokemonObj = JSON.stringify(await getPokemon(id))
-            if(fs.existsSync(`${usersPath}/${userName}/${id}.json`))//check if path exist
+            if(fs.existsSync(`${userPath}/${id}.json`))//check if path exist
             errorfunc.forbiddenAction(null,req,res)
         else{
-            fs.writeFileSync(`${usersPath}/${userName}/${id}.json`,pokemonObj)//create file with id name
+            fs.writeFileSync(`${userPath}/${id}.json`,pokemonObj)//create file with id name
             res.send("You've got yourself a pokemon ✔")
         }
     } catch (error) {
@@ -67,9 +70,10 @@ router.put("/catch/:id", async (req, res)=> {//function check if pokemon already
 router.delete("/release/:id", (req, res)=> {
     const id = req.params.id;
     const userName = req.username
-    const userFilesArray = fs.readdirSync(`${usersPath}/${userName}`);  
+    const userPath = path.resolve(path.join('./users', userName))
+    const userFilesArray = fs.readdirSync(`${userPath}`);  
     if(userFilesArray.includes(`${id}.json`)){
-    fs.unlinkSync(`${usersPath}/${userName}/${id}.json`)
+    fs.unlinkSync(`${userPath}/${id}.json`)
     res.send('pokemon released😥')
 }
     else{

@@ -141,13 +141,13 @@ const getPokemonsByIdOrName = async (idOrName) => {
 
 
       signInButton.addEventListener('click', ()=>{
-        handleSignUp()
+        handleSignIn()
       })
       userNameSignIn.addEventListener('keydown', (e)=>{
       if (e.key === "Enter") 
-      handleSignUp()
+      handleSignIn()
     })
-      const handleSignUp = async ()=>{//handle sign up button
+      const handleSignIn = async ()=>{//handle sign up button
       window.scrollTo(-500,0);
         const userNameVal = userNameSignIn.value
         if(!userNameVal){
@@ -190,17 +190,26 @@ const getPokemonsByIdOrName = async (idOrName) => {
           }
 
 
-       signUpButton.onclick = async ()=>{//for sign up to web
-        const userNameVal = userNameSignUp.value
-        if(!userNameVal){
-          // errorAlert('No content!','type something...')
-          alert('No content!','type something...')
-        return
-        }
+        signUpButton.addEventListener('click', ()=>{
+          handleSignUp()
+        })
+        userNameSignUp.addEventListener('keydown', (e)=>{
+        if (e.key === "Enter") 
+        handleSignUp()
+        })
+
+      const handleSignUp = async ()=>{//for sign up to web
+      const userNameVal = userNameSignUp.value
+      if(!userNameVal){
+      errorAlert('No content!','type something...')
+      return
+      }
       const response =  await axiosRequest('post','users/info',userNameVal)  
-      // niceAlert(response)
-      console.log(response)
-      alert(response)
+      niceAlert(response)
+      if(response.includes("signed up")){//if there is such username
+      connected(userNameVal)//show the connected sign
+        window.scrollTo(-700,0);
+      }
       }
 
 
