@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap");
+
+body {
+  background: linear-gradient(to right, #000000, #434343);
+}
+
+#search {
+  font-family: "Sriracha", sans-serif;
+  font-weight: bold;
+  border-radius: 4px;
+  border-color: rgba(169, 169, 169, 0.377);
+}
+
+.pokemon-result,div {
+  font-family: "Sriracha", sans-serif;
+}
+
+.stats {
+  color: #ccd2d4;
+}
+img {
+  width: 200px;
+  height: 180px;
+  border: 3px solid #434343;
+  border-radius: 24px;
+}
+
+.newType:hover {
+  cursor: pointer;
+  background: #e4ddddbd;
+  border-radius: 13px;
+}
+
+.new-poke-by-type {
+  cursor: pointer;
+}
+
+#connect{
+  font-size: 3rem;
+}
+#showList{
+text-align: right;
+}
+#showUserPokes{
+  font-size: 2rem;
+}
+.listPokes{
+  list-style-type: none;
+}
