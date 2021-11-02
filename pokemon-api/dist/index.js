@@ -28,7 +28,6 @@ const getPokemonsByIdOrName = async (idOrName) => {
   }
 };  
 
-
     async function getPokemonByNameOrId(idOrName){
       let response  
       if(!isNaN(idOrName))
@@ -37,7 +36,6 @@ const getPokemonsByIdOrName = async (idOrName) => {
       response = await axiosRequest('get',`pokemon/query?name=${idOrName}`,'a');
       return response
     }
-
 
       function showPokemonData(recievedData) {
         //Get user data and shows it in the dom
@@ -124,7 +122,7 @@ const getPokemonsByIdOrName = async (idOrName) => {
 
 
 
-      releaseButton.onclick = async ()=>{ //handle catch button
+      releaseButton.onclick = async ()=>{ //handle release button
         if(document.getElementById('connect').textContent === ''){
         errorAlert('Oops',"you can't catch pokemons if you aren't logged in")
         return
@@ -140,14 +138,14 @@ const getPokemonsByIdOrName = async (idOrName) => {
 
 
 
-      signInButton.addEventListener('click', ()=>{
+      signInButton.addEventListener('click', ()=>{//Listen to sign up button click 
         handleSignIn()
       })
-      userNameSignIn.addEventListener('keydown', (e)=>{
+      userNameSignIn.addEventListener('keydown', (e)=>{//Listen to sign up input 'Enter' key
       if (e.key === "Enter") 
       handleSignIn()
     })
-      const handleSignIn = async ()=>{//handle sign up button
+      const handleSignIn = async ()=>{//handle sign in button function
       window.scrollTo(-500,0);
         const userNameVal = userNameSignIn.value
         if(!userNameVal){
@@ -165,7 +163,7 @@ const getPokemonsByIdOrName = async (idOrName) => {
           }
       }
 
-        function connected(userName){
+        function connected(userName){//connect to the web show green mark left top sign
           const connectNofiaction = document.getElementById('connect')
           connectNofiaction.className = 'connected'
           connectNofiaction.textContent = `connected as: ${userName}`
@@ -173,7 +171,7 @@ const getPokemonsByIdOrName = async (idOrName) => {
         }
       
         async function axiosRequest(methodPath,partialPath,userName)
-          {
+          {//the function get method,path and username and handle the axios request
             try {
               const response = await axios({
                 method: methodPath,
@@ -185,20 +183,21 @@ const getPokemonsByIdOrName = async (idOrName) => {
               },
               });
               return response.data
-            } catch (e) {
+            } catch (err) {
+              console.log(err);
             }
           }
 
 
-        signUpButton.addEventListener('click', ()=>{
+        signUpButton.addEventListener('click', ()=>{//Listen to sign up button click 
           handleSignUp()
         })
-        userNameSignUp.addEventListener('keydown', (e)=>{
+        userNameSignUp.addEventListener('keydown', (e)=>{//Listen to sign up input 'Enter' key
         if (e.key === "Enter") 
         handleSignUp()
         })
 
-      const handleSignUp = async ()=>{//for sign up to web
+      const handleSignUp = async ()=>{//handle sign up button function
       const userNameVal = userNameSignUp.value
       if(!userNameVal){
       errorAlert('No content!','type something...')

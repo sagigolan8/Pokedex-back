@@ -3,23 +3,18 @@ var Pokedex = require('pokedex-promise-v2');
 var P = new Pokedex();
 const fs = require('fs')
 const path = require('path')
-// const usersPath = `C:/dev/cyber4s/Pokedex-back/pokemon-api/users`
-// const usersPath = path.resolve(path.join('./users', userName))
 const { errorfunc } = require('../middleware/errorHandler')
 const {handleUserName} = require('../middleware/userHandler')
-
 
 function openPokemonFile(usersPath) {//gets file path return the name of the pokemon
     const pokemonObj = JSON.parse(fs.readFileSync(usersPath));
     return pokemonObj.name
   }
 
-
 router.get('/', handleUserName, function (req, res) {
     let pokemonArray = []
     const userName = req.username
     const userPath = path.resolve(path.join('./users', userName))
-    // const userPath = `${usersPath}/${userName}`
     if (fs.existsSync(userPath)) {
         const userFiles = fs.readdirSync(userPath)
         userFiles.forEach((a) => {
@@ -30,7 +25,7 @@ router.get('/', handleUserName, function (req, res) {
 })
 
 
-router.get('/get/:id', async(req,res)=>{
+router.get('/get/:id', async(req,res)=>{//get pokemon by his id
     try {
         
         res.send((await getPokemon(req.params.id)));
@@ -38,7 +33,7 @@ router.get('/get/:id', async(req,res)=>{
         errorfunc.pokemonNotFound(null,req,res)
     }
 })
-router.get('/query', async(req,res)=>{
+router.get('/query', async(req,res)=>{//get pokemon by his name
     try {
         
         res.send((await getPokemon(req.query.name)));
@@ -47,7 +42,6 @@ router.get('/query', async(req,res)=>{
 
     }
 })
-
 
 router.put("/catch/:id", async (req, res)=> {//function check if pokemon already caught or not
     try {
@@ -67,7 +61,7 @@ router.put("/catch/:id", async (req, res)=> {//function check if pokemon already
 
 })
 
-router.delete("/release/:id", (req, res)=> {
+router.delete("/release/:id", (req, res)=> {//function check if pokemon can be release or didn't caught yet
     const id = req.params.id;
     const userName = req.username
     const userPath = path.resolve(path.join('./users', userName))
@@ -81,8 +75,7 @@ router.delete("/release/:id", (req, res)=> {
     }
 })
 
-
-async function getPokemon(pokemonId){
+async function getPokemon(pokemonId){//function get pokemon id and return the pokemon object 
     const pokemonObj = await P.getPokemonByName(pokemonId)
     return {
         name: pokemonObj.name,
